@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="docketTask">
+  <head>
+    <meta charset="utf-8">
+    <title>Docket Task</title>
+	  <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body ng-controller="quizControllers">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#/">Docket Task</a>
+            <button type="button" data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- User details page -->
+
+    <div class="col-sm-6 col-sm-offset-3 push-down1" ng-show="!showQuiz">
+      <h1><span class="fa fa-sign-in"></span>Enter the user details</h1>
+      <form name="fmUser" novalidate method="post">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-control" name="username" ng-model="user.username" ng-required="true">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" name="email" ng-model="user.email" ng-required="true">
+        </div>
+        <div class="form-group">
+          <label>Mobile number</label>
+          <input type="tel" class="form-control" name="number" ng-model="user.number" ng-required="true">
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-4 col-sm-10">
+            <button type="submit" class="btn btn-warning btn-lg" ng-click="startQuiz()" ng-disabled="fmUser.$invalid">Submit</button>
+          </div>
+        </div>
+      </form>
+      <hr>
+    </div>
+
+    <!-- Question Pages -->
+
+    <div class="col-sm-6 col-sm-offset-3 push-down1" ng-show="showQuiz">
+      <div class="repeated-item" ng-show="!quizOver">
+        <h3 id="question">{{index}}<span id="bullet">&#0149</span> {{question}}</h3>
+
+        <ul id="options">
+          <li ng-repeat="option in options">
+            <label>
+              <input type="radio" id="radio" name="answer" value="{{option}}"> {{option}}
+            </label>
+          </li>
+        </ul>
+        <button class="btn btn-md btn-primary" ng-click="getAnswer(question)" ng-show="nextQuiz">Submit</button>
+        <div ng-show="!nextQuiz">
+          <button ng-click="nextQuestion()" class="btn btn-md btn-info next-question">Next Question</button>
+        </div>
+      </div>
+
+      <!-- Total score pages -->
+
+      <div ng-show="quizOver">
+        <div id="score" ng-show="quizOver">
+          <div ng-show="!reviewQuizs">
+            <h2>You've completed the task!</h2>
+            <div id="total">
+              <h1>Total Score: {{score}} of {{options.length+1}}</h1>
+            </div>
+            <button class="btn btn-warning btn-md" id="review" ng-click="reviewQuiz()">Review Questions</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question review page -->
+
+      <div ng-show="reviewQuizs">
+        <div ng-show="showQuiz">
+          <h2>All questions review! </h2>
+          <div ng-repeat="question in allQuestions">
+            <h3 id="question">{{$index + 1}}<span id="bullet">&#0149</span> {{question.question}}</h3>
+            <ul id="options1">
+              <li ng-repeat="option in question.options">
+                <label ng-style="applystyle(question,option)">
+                  <span id="answer" name="answer" ng-model="option" ng-change=answered($index)>
+                  {{option}}</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <button class="btn btn-warning btn-md pull-center" id="reset" ng-click="reset()">Start again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Script files  -->
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="app/app.js"></script>
+    <script src="js/controllers/quizControllers.js"></script>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script> -->
+  </body>
+</html>

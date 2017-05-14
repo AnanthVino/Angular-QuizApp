@@ -1,0 +1,21 @@
+{
+  "name": "dockettask",
+  "version": "1.0.0",
+  "description": "assign task question to new user",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "angularjs"
+  ],
+  "author": "ananth pandian",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/material": "^2.0.0-beta.3",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "nodemon": "^1.11.0"
+  }
+}
